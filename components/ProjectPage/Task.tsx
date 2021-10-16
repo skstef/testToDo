@@ -5,7 +5,7 @@ import CheckBoxSvg from "../../assets/checkbox.svg";
 import CheckedBoxSvg from "../../assets/checkedbox.svg";
 import TrashSvg from "../../assets/trash.svg";
 import CreateSvg from "../../assets/create.svg";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { deleteTask } from "../../utils/tasks/deleteTask";
 import { updateTask } from "../../utils/tasks/updateTask";
 import clsx from "clsx";
@@ -28,9 +28,21 @@ const Task: React.FC<ITaskProps> = ({
   const [isCreatingSubTask, setIsCreatingSubTask] = useState(false);
   const [newText, setNewText] = useState<string>("");
 
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+
+  const adjustTextAreaHeight = (): void => {
+    if (textAreaRef.current) {
+      textAreaRef.current.style.height = "auto";
+      textAreaRef.current.style.height =
+        textAreaRef.current.scrollHeight + "px";
+    }
+  };
+
   const handleFocus = () => {
     setIsEditing(true);
     setNewText(task.text);
+
+    setTimeout(adjustTextAreaHeight, 0);
   };
 
   const handleDelete = () => {
@@ -38,8 +50,9 @@ const Task: React.FC<ITaskProps> = ({
     reloadTasks();
   };
 
-  const handleNewTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleNewTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewText(e.target.value);
+    adjustTextAreaHeight();
   };
 
   const handleSubmitEditTaskText = (
@@ -72,10 +85,11 @@ const Task: React.FC<ITaskProps> = ({
         </button>
         {isEditing ? (
           <form className={styles.editTask}>
-            <input
+            <textarea
+              ref={textAreaRef}
               onChange={handleNewTextChange}
-              value={newText}
               className={styles.editTaskText}
+              value={newText}
             />
             <button
               type="submit"

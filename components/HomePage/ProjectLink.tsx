@@ -8,7 +8,7 @@ interface IProjectProps {
 
 const ProjectLink: React.FC<IProjectProps> = ({ project }) => {
   return (
-    <Link href={`/project/${project.id}`} passHref>
+    <Link href={`/project/${project.id}`}>
       <div className={styles.container}>
         <span className={styles.title}>{project.title}</span>
       </div>
