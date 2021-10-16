@@ -37,7 +37,9 @@ If build succeeded then you will see following:
 Screenshorts of running app:
 
 ![image](https://user-images.githubusercontent.com/52489178/137596911-ab69fe7d-77c3-4702-8099-0d19e5be80f8.png)
-![image](https://user-images.githubusercontent.com/52489178/137596923-8203219e-1d89-4457-9f22-831864bc4298.png)
+![image](https://user-images.githubusercontent.com/52489178/137597782-0c1c5be7-1279-44a1-928b-be2736ec00ad.png)
+![image](https://user-images.githubusercontent.com/52489178/137597789-b76f464d-5ef6-4826-bc48-63e171b4403c.png)
+
 
 ## Deploy on Vercel
 
