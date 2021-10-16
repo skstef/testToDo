@@ -8,6 +8,13 @@ import React, { useEffect, useState, useCallback } from "react";
 import CreateTask from "../../components/ProjectPage/CreateTask";
 import ProjectTitle from "../../components/ProjectPage/ProjectTitle";
 import { setStorageTasksTextFilter } from "../../utils/projects/setTaskTextFilter";
+import {
+  DragDropContext,
+  Draggable,
+  Droppable,
+  DropResult,
+} from "react-beautiful-dnd";
+import { swapTasks } from "../../utils/tasks/swapTasks";
 
 const Project: NextPage = () => {
   const router = useRouter();
@@ -36,6 +43,13 @@ const Project: NextPage = () => {
     setTaskTextFilter(e.target.value);
   };
 
+  const handleOnDragEnd = (result: DropResult) => {
+    if (project && result.destination) {
+      swapTasks(project.id, result.source.index, result.destination.index);
+      reloadProject();
+    }
+  };
+
   return (
     <>
       {project && (
@@ -55,18 +69,42 @@ const Project: NextPage = () => {
           />
 
           <h3 className={styles.title}>Tasks</h3>
-          {project.tasks
-            .filter(({ text }) =>
-              text.toLowerCase().includes(taskTextFilter.toLowerCase())
-            )
-            .map((task) => (
-              <Task
-                projectId={project.id}
-                reloadTasks={reloadProject}
-                key={task.id}
-                task={task}
-              />
-            ))}
+
+          <DragDropContext onDragEnd={handleOnDragEnd}>
+            <Droppable droppableId="tasks">
+              {(provided) => (
+                <div {...provided.droppableProps} ref={provided.innerRef}>
+                  {project.tasks
+                    .filter(({ text }) =>
+                      text.toLowerCase().includes(taskTextFilter.toLowerCase())
+                    )
+                    .map((task, index) => (
+                      <Draggable
+                        isDragDisabled={taskTextFilter.length > 0}
+                        key={task.id}
+                        draggableId={task.id}
+                        index={index}
+                      >
+                        {(provided) => (
+                          <div
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                          >
+                            <Task
+                              projectId={project.id}
+                              reloadTasks={reloadProject}
+                              task={task}
+                            />
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
 
           <CreateTask projectId={project.id} reloadTasks={reloadProject} />
         </div>
