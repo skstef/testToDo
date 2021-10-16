@@ -15,6 +15,8 @@ import {
   DropResult,
 } from "react-beautiful-dnd";
 import { swapTasks } from "../../utils/tasks/swapTasks";
+import { saveFilter } from "../../utils/filters/saveFilter";
+import { getFilters } from "../../utils/filters/getFilters";
 
 const Project: NextPage = () => {
   const router = useRouter();
@@ -22,6 +24,7 @@ const Project: NextPage = () => {
 
   const [project, setProject] = useState<IProject>();
   const [taskTextFilter, setTaskTextFilter] = useState("");
+  const [filters, setFilters] = useState<string[]>([]);
 
   useEffect(() => {
     const savedProject = getProject(id);
@@ -31,6 +34,7 @@ const Project: NextPage = () => {
     }
     setProject(savedProject);
     setTaskTextFilter(savedProject?.taskTextFilter || "");
+    setFilters(getFilters());
   }, []);
 
   const reloadProject = useCallback(() => {
@@ -47,6 +51,13 @@ const Project: NextPage = () => {
     if (project && result.destination) {
       swapTasks(project.id, result.source.index, result.destination.index);
       reloadProject();
+    }
+  };
+
+  const handleSaveFilter = (): void => {
+    if (taskTextFilter.trim().length > 0) {
+      saveFilter(taskTextFilter);
+      setFilters(getFilters());
     }
   };
 
@@ -67,6 +78,24 @@ const Project: NextPage = () => {
             className={styles.searchTaskTitle}
             placeholder={`Type task text here for finding it.`}
           />
+          <div className={styles.savedFilters}>
+            <button onClick={handleSaveFilter} className={styles.saveFilter}>
+              Save filter
+            </button>
+
+            {filters.map((filter) => (
+              <button
+                onClick={() => {
+                  setStorageTasksTextFilter(project.id, filter);
+                  setTaskTextFilter(filter);
+                }}
+                key={filter}
+                className={styles.savedFilter}
+              >
+                {filter}
+              </button>
+            ))}
+          </div>
 
           <h3 className={styles.title}>Tasks</h3>
 
