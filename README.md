@@ -1,8 +1,20 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Demo
+
+Here you may find  [Example](https://test-to-do.vercel.app/) of running ToDo App
+
 ## Getting Started
 
-First, run the development server:
+First, install missing dependencies:
+
+```bash
+npm install
+# or
+yarn install
+```
+
+Run the development server:
 
 ```bash
 npm run dev
@@ -10,22 +22,22 @@ npm run dev
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Build app:
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+# or
+yarn build
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+If build succeeded then you will see following:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+![image](https://user-images.githubusercontent.com/52489178/137596786-0ccbe78a-bea1-4eb8-89a0-d6ce88e2047e.png)
 
-## Learn More
+Screenshorts of running app:
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+![image](https://user-images.githubusercontent.com/52489178/137596911-ab69fe7d-77c3-4702-8099-0d19e5be80f8.png)
+![image](https://user-images.githubusercontent.com/52489178/137596923-8203219e-1d89-4457-9f22-831864bc4298.png)
 
 ## Deploy on Vercel
 
