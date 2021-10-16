@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.newTaskTitle {
+  font-size: 14px;
+  line-height: 19px;
+  padding: 8px 15px;
+  border: 1px solid #cbcbe4;
+  box-sizing: border-box;
+  border-radius: 6px;
+  outline: none;
+  background: #fff;
+  display: block;
+  flex-grow: 1;
+  margin-right: 15px;
+}
+
+.button {
+  padding: 10px 25px;
+  background: #29a19c;
+  border-radius: 8px;
+  border: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  outline: none;
+}
+
+.button span {
+  color: white;
+  font-weight: 600;
+}
+
+.button:active span {
+  color: #c4e9e7;
+}
+
+.button svg {
+  height: 18px;
+  width: 18px;
+  flex: 0 0 18px;
+  margin-right: 10px;
+}
